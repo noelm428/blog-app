@@ -8,7 +8,17 @@ posts.get('/',(req,res) => {
     res.json(foundPosts)
   })
 })
+posts.post('/', (req, res) => {
+  Post.create(req.body, (err, createdPost) => {
+    Post.find({}, (err, foundPosts) => {
+      res.json(foundPosts)
+    })
+  })
+})
 
+posts.put('/:id',(req,res) => {
+   Post.findByIdAndUpdate(req.params.id,req.body)
+})
 
 
 module.exports = posts
