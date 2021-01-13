@@ -1,3 +1,3 @@
 # blog-app
 Ryan Fanelli
-Noel Rodriguez 
+Noel rodriguez
