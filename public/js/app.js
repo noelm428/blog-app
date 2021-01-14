@@ -128,8 +128,8 @@ class App extends React.Component {
                         return (
                             <div key={post._id}>
                                 <h2>{post.title}</h2>
-                                <p>{post.post}</p>
-                                <img src={post.image} alt={post.title}/>
+                                <p className="postBody">{post.post}</p>
+                                 <img className="postImg" src={post.image} alt={post.title}/>
                                 <p>created by: {post.name}</p>
                              
                                 
