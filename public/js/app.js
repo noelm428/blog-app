@@ -34,7 +34,7 @@ class App extends React.Component {
     update = (event)=>{
         event.preventDefault();
         axios
-            .put('/blog', this.state)
+            .put('/blog/'+event.target.id, this.state)
             .then((response)=>{
                 console.log(response.data)
                 this.setState({
@@ -46,6 +46,18 @@ class App extends React.Component {
                     date: undefined,
                 })
             })
+    }
+
+    delete = (event)=>{
+        axios
+            .delete('/blog/'+event.target.value)
+            .then(
+                (response)=>{
+                    this.setState({
+                        posts: response.data
+                    })
+                }
+            )
     }
 
     openModal = ()=>{
@@ -108,7 +120,7 @@ class App extends React.Component {
                                 <button className="edit" onClick={this.openModal}>edit</button>
                                 <div className="modal">
                                     <div className="modal-box">
-                                        <form onSubmit={this.update}>
+                                        <form onSubmit={this.update} id={post._id}>
                                             <label htmlFor="name">Userame: </label><br/>
                                             <input type="text" name="name" id="name" onClick={this.handleChange}/><br/>
 
@@ -123,7 +135,7 @@ class App extends React.Component {
 
                                             <input type="submit" value="Update"/>
 
-                                            <button onClick={delete}>Delete</button>
+                                            <button onClick={this.delete} value={post._id}>Delete</button>
                                             
                                         </form>
                                         <button onClick={this.closeModal}>Close</button>
