@@ -16,12 +16,14 @@ mongoose.connect(MONGODB_URI, {
   useUnifiedTopology: true,
   useFindAndModify: false,
 })
+
 mongoose.connection.on('error', (err) =>
   console.log(
     err.message,
     'is mongod not running/Problem with atlas connection?'
   )
 )
+
 mongoose.connection.on('connected', () =>
   console.log('mongo connected: ', MONGODB_URI)
 )

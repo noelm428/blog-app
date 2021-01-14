@@ -19,8 +19,29 @@ class App extends React.Component {
         axios
             .post('/blog', this.state)
             .then((response)=>{
-                console.log(response)
+                console.log(response.data)
+                this.setState({
+                    posts: response.data,
+                    title: '',
+                    name: '',
+                    image: '',
+                    post: '',
+                    date: undefined,
+                })
             })
+    }
+
+    componentDidMount = ()=>{
+        axios
+            .get('/blog')
+            .then(
+                (response)=>{
+                    console.log(response.data)
+                    this.setState({
+                        posts: response.data
+                    })
+                }
+            )
     }
 
     
@@ -50,9 +71,16 @@ class App extends React.Component {
 
                 <div>
                     {this.state.posts.map((post)=>{
-                        <div>
-                            POST
-                        </div>
+                        return (
+                            <div key={post._id}>
+                                <h2>{post.title}</h2>
+                                <p>{post.post}</p>
+                                {(post.image)?
+                                    <img src={post.image} alt={post.title}/>
+                                    : null    
+                            }
+                            </div>
+                        )
                     })}
                 </div>
 
