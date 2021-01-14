@@ -1,4 +1,4 @@
-.modal {
+/* .modal {
     display: none;
     justify-content: center;
     align-items: center;
@@ -20,4 +20,43 @@
     width: 50vh;
     border-radius: 5px;
     box-shadow:-4px 4px 5px rgba(0, 0, 0, 0.7);
+  } */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+  * {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  #createDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border: 1px solid black;
+  }
+
+
+
+  .post {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .post > div {
+    border: 5px solid rgb(0, 0, 0);
+    padding: 1%;
+    margin: 2%;
+    height: 10%;
+    width: 70%;
+  }
+
+  .postBody {
+    border: 1px solid black;
+  }
+
+  .postImg {
+    max-height: 100%;
+    max-width: 100%;
   }
