@@ -16,9 +16,17 @@ posts.post('/', (req, res) => {
   })
 })
 
-posts.put('/:id',(req,res) => {
-   Post.findByIdAndUpdate(req.params.id,req.body)
+posts.put('/:id', (req, res) => {
+  Post.findByIdAndUpdate(req.params.id,req.body,{new: true},
+    (err, updatedPost) => {
+      if (err) {
+        res.send(err)
+      } else {
+        Post.find({}, (err, foundPosts) => {
+          res.json(foundPosts)
+        })
+      }
+    }
+  )
 })
-
-
 module.exports = posts
