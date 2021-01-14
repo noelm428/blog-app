@@ -31,6 +31,32 @@ class App extends React.Component {
             })
     }
 
+    update = (event)=>{
+        event.preventDefault();
+        axios
+            .put('/blog', this.state)
+            .then((response)=>{
+                console.log(response.data)
+                this.setState({
+                    posts: response.data,
+                    title: '',
+                    name: '',
+                    image: '',
+                    post: '',
+                    date: undefined,
+                })
+            })
+    }
+
+    openModal = ()=>{
+        document.querySelector('.modal').style.display = "flex"
+    }
+
+    closeModal = ()=>{
+        document.querySelector('.modal').style.display = "none"
+    }
+    
+
     componentDidMount = ()=>{
         axios
             .get('/blog')
@@ -53,23 +79,23 @@ class App extends React.Component {
                 <div id="createDiv">
                 <h1>Create a Post</h1>
                     <form id="createPost" onSubmit={this.create}>
-                        <label htmlFor="name">Username</label><br/>
+                        <label htmlFor="name">Username: </label><br/>
                         <input type="text" name="name" id="name" onChange={this.handleChange}/><br/>
 
-                        <label htmlFor="title">Title</label><br/>
+                        <label htmlFor="title">Title: </label><br/>
                         <input type="text" name="title" id="title" onChange={this.handleChange}/><br/>
 
-                        <label htmlFor="">Text</label><br/>
+                        <label htmlFor="">Text: </label><br/>
                         <textarea name="post" id="post" cols="30" rows="10" onChange={this.handleChange}></textarea ><br/>
 
-                        <label htmlFor="image">image</label><br/>
+                        <label htmlFor="image">Image: </label><br/>
                         <input type="text" name="image" id="image" onChange={this.handleChange}/><br/>
 
                         <input type="submit" value="Post!"/>
                     </form>
                 </div>
 
-                <div>
+                <div className="post">
                     {this.state.posts.map((post)=>{
                         return (
                             <div key={post._id}>
@@ -78,7 +104,33 @@ class App extends React.Component {
                                 {(post.image)?
                                     <img src={post.image} alt={post.title}/>
                                     : null    
-                            }
+                                }
+                                <button className="edit" onClick={this.openModal}>edit</button>
+                                <div className="modal">
+                                    <div className="modal-box">
+                                        <form onSubmit={this.update}>
+                                            <label htmlFor="name">Userame: </label><br/>
+                                            <input type="text" name="name" id="name" onClick={this.handleChange}/><br/>
+
+                                            <label htmlFor="title">Title: </label><br/>
+                                            <input type="text" name="title" id="title" onClick={this.handleChange}/><br/>
+
+                                            <label htmlFor="post"></label>Text: <br/>
+                                            <input type="text" name="post" id="post" onClick={this.handleChange}/><br/>
+
+                                            <label htmlFor="image">Image: </label><br/>
+                                            <input type="text" name="image" id="image" onClick={this.handleChange}/><br/>
+
+                                            <input type="submit" value="Update"/>
+
+                                            <button onClick={delete}>Delete</button>
+                                            
+                                        </form>
+                                        <button onClick={this.closeModal}>Close</button>
+                                    </div>
+                                </div>
+
+
                             </div>
                         )
                     })}
