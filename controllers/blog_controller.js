@@ -4,6 +4,8 @@ const postSeed = require('../models/post_seed.js')
 
 const Post = require('../models/blog.js')
 
+///////////////////////////////////////////////////////////////////////////////
+
 posts.get('/',(req,res) => {
   Post.find({},(err,foundPosts) => {
     res.json(foundPosts)
@@ -35,6 +37,21 @@ posts.put('/:id', (req, res) => {
     }
   )
 })
+
+///////////////DROP/////////////////////////////////////////////////////////////
+posts.get('/drop', (req, res) => {
+  Post.collection.drop()
+  res.redirect('/')
+})
+
+/////////////////SEED///////////////////////////////////////////////////////////
+
+posts.get('/seed', (req, res) => {
+  Bird.insertMany(postSeed, (err, manyPosts) => {
+    res.redirect('/')
+  })
+})
+
 /////////////////DELETE//////////////////////////////////////////////////////////
 posts.delete('/:id', (req, res) => {
   Post.findByIdAndRemove(req.params.id, (err, deletedPost) => {
@@ -43,6 +60,7 @@ posts.delete('/:id', (req, res) => {
     })
   })
 })
+
 
 
 
